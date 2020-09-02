@@ -2,7 +2,7 @@ server:
   port: 8040
 spring:
   application:
-    # ×¢²áµ½nacosÉÏµÄ·şÎñÃû³Æ
+    # æ³¨å†Œåˆ°nacosä¸Šçš„æœåŠ¡åç§°
     name: gateway
   cloud:
     nacos:
@@ -11,8 +11,16 @@ spring:
     gateway:
       discovery:
         locator:
-          # ·¢ÏÖnacosÉÏÆäËû·şÎñ×é¼ş
+          # å‘ç°nacosä¸Šå…¶ä»–æœåŠ¡ç»„ä»¶
           enabled: true
+      routes:
+        - id: after_route
+          uri: lb://user-center
+          predicates:
+            - TimeBetween=ä¸Šåˆ9:00,ä¸‹åˆ10:00
+          filters:
+            - PreLog=mike,mhm
+
 management:
   endpoints:
     web:
